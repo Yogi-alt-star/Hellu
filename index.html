@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Free Gift 🎁</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background: #000;
+        color: white;
+    }
+
+    h1 {
+        margin-top: 40px;
+    }
+
+    #btn {
+        position: absolute;
+        padding: 20px 40px;
+        font-size: 22px;
+        background: red;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    #loading {
+        display: none;
+        font-size: 24px;
+        margin-top: 100px;
+    }
+</style>
+</head>
+
+<body>
+
+<h1>Tap to Claim Your Reward 🎉</h1>
+<button id="btn">Tap Me 😏</button>
+
+<div id="loading">Installing reward... 0%</div>
+
+<script>
+const btn = document.getElementById("btn");
+const loading = document.getElementById("loading");
+
+// Move button when tapped
+btn.addEventListener("click", () => {
+    const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+    const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+
+    btn.style.left = x + "px";
+    btn.style.top = y + "px";
+});
+
+// After multiple taps, start prank
+let taps = 0;
+
+btn.addEventListener("click", () => {
+    taps++;
+
+    if (taps > 5) {
+        btn.style.display = "none";
+        loading.style.display = "block";
+
+        let percent = 0;
+
+        let fakeLoad = setInterval(() => {
+            percent++;
+            loading.innerText = "Installing reward... " + percent + "%";
+
+            if (percent === 100) {
+                clearInterval(fakeLoad);
+
+                setTimeout(() => {
+                    document.body.innerHTML = `
+                        <h1 style="color:red;">⚠️ PHONE HACKED ⚠️</h1>
+                        <p>Sending your data...</p>
+                    `;
+
+                    setTimeout(() => {
+                        document.body.innerHTML = `
+                            <h1>😂 GOT YOU 😂</h1>
+                            <p style="font-size:22px;">Nothing happened</p>
+                        `;
+                    }, 2500);
+
+                }, 500);
+            }
+        }, 40);
+    }
+});
+</script>
+
+</body>
+</html>
